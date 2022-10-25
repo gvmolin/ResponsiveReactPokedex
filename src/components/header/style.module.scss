@@ -1,0 +1,53 @@
+@import "../../utils/style/index.scss";
+
+.header {
+  background-color: $more-lighter-grey;
+  width: 100vw;
+  height: 18vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 20px 20px;
+}
+
+.container {
+  height: 100%;
+  padding: $default-page-padding;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  div{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  
+    input {
+      width: 90%;
+      border: none;
+      border-radius: $default-border-radius 0 0 $default-border-radius;
+      height: 4vh;
+      background-color: $lighter-grey; 
+      padding: 0 10px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+   
+    button {
+      border: none;
+      border-radius: 0 $default-border-radius $default-border-radius 0;
+      width: 10%;
+      background-color: $lighter-grey;
+
+      &:active{
+        background-color: $grey;
+        transition: 0.5s;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
