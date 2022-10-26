@@ -1,0 +1,14 @@
+@import "../../utils/style/index.scss";
+
+.content{
+  padding: $default-page-padding;
+  
+  .list{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2vw;
+    row-gap: 2vw;
+  }
+}
+
