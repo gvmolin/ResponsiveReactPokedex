@@ -1,0 +1,51 @@
+@import "../../utils/style/index.scss";
+
+.content{
+  padding: $default-page-padding;
+
+  .imgContainer{
+    background-color: $lighter-grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50vh;
+    border-radius: $default-border-radius;
+
+    img{
+      height: 80%;
+    }
+  }
+
+  .typeTagsContainer{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1vh;
+    
+  }
+
+  .typeTag{
+    width: 46%;
+    border-radius: $default-border-radius;
+    display: flex;
+    justify-content: center;
+    padding: 1vw;
+    color: white;
+
+    span{
+      color: white;
+    }
+  }
+}
+
+.itemHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.statsContainer{
+  display: flex;
+  justify-content: space-between;
+}

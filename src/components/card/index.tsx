@@ -46,7 +46,11 @@ export default function Card (props:IData) {
   },[]);
 
   return (
-    <div className={style.card} style={{backgroundColor: color?.color}}>
+    <a
+      className={style.card} 
+      style={{backgroundColor: color?.color}}
+      href={`/details/${pokemon.id}`}
+    >
       <div className={style.imageContainer}>
         <img src={pokemon.sprites.front_default} alt="Pokemon image" />
       </div>
@@ -54,6 +58,6 @@ export default function Card (props:IData) {
         <h3>#{pokemon.id}</h3>
         <h2>{capitalizeFLetter(pokemon.name)}</h2>
       </div>
-    </div>
+    </a>
   );
 }

@@ -1,0 +1,9 @@
+@import "../../utils/style/index.scss";
+
+button{
+  border: none;
+  border-radius: $default-border-radius;
+  background-color: transparent;
+  padding: 2vw;
+  font-size: 5vw;
+}

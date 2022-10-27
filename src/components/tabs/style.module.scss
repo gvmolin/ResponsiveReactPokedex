@@ -1,0 +1,34 @@
+@import "../../utils/style/index.scss";
+
+.tabsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3vh;
+  width: 100%;
+  margin-bottom: 2vh;
+
+  div{
+    display: flex;
+    justify-content: center;
+
+    button{
+      padding: 0;
+      
+      h2{
+        color: $grey;
+        font-size: 2vh;
+      }
+
+      .selected{
+        color:$darker-grey;
+      }
+   
+    }    
+  }
+}
+
+
+
+.nonSelected{
+  color:$lighter-grey;
+}
