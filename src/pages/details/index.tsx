@@ -9,6 +9,7 @@ import Button from "../../components/button";
 import { v4 as uuidv4 } from "uuid";
 import findColorByType from "../../utils/style/typeColors";
 import Tabs from "../../components/tabs";
+import Stats from "../../components/stats";
 
 export default function Details (){
   //DATA
@@ -80,25 +81,7 @@ export default function Details (){
       <Tabs elements={[
         {
           name:"Stats",
-          content:  
-            <>
-              {pokemon.stats.map((stat, i) => (
-                <div key={uuidv4()} className={style.statsContainer}>
-                  <label htmlFor={`${stat.stat.name}`}>{stat.stat.name}</label>
-                  <div>
-                    <input 
-                      type="range" 
-                      id={`${stat.stat.name}`} 
-                      name={`${stat.stat.name}`} 
-                      value={stat.base_stat} 
-                      readOnly 
-                    />
-                    <span>{stat.base_stat}</span>
-                  </div>
-                  
-                </div>
-              ))}
-            </>
+          content:<Stats stats={pokemon.stats}></Stats>
         },
         {
           name:"Moves",

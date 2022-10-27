@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import style from "./style.module.scss";
 
 interface IProps{
@@ -12,11 +12,13 @@ interface IContent{
 }
 
 export default function Tabs(props:IProps){
-  const [current, setCurrent] = useState(props.elements[0]);
+  const [current, setCurrent] = useState(props.elements[0]);  
 
   function onClickTab(element:IContent){
     setCurrent(element);
   }
+
+  useMemo( () => setCurrent(props.elements[0]), [props.elements]);
 
   return (
     <div>
@@ -33,7 +35,6 @@ export default function Tabs(props:IProps){
                 </h2>
               </button>
             </div>
-            
           ))
         }
       </div>
