@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import style from "./style.module.scss";
+import capitalizeFLetter from "../../utils/tools/string";
 import { useEffect, useState } from "react";
 
 interface IProps{
@@ -24,20 +25,10 @@ export default function Stats (props:IProps){
     <div className={style.container}>
       {stats.map((stat) => (
         <div key={uuidv4()} className={style.line}>
-          <label htmlFor={`${stat.stat.name}`}>{stat.stat.name}</label>
+          <label htmlFor={`${stat.stat.name}`}><h4>{capitalizeFLetter(stat.stat.name)}</h4></label>
           <div>
-            {/* <input
-              min='0'
-              max='240'
-              type="range"
-              id={`${stat.stat.name}`}
-              name={`${stat.stat.name}`}
-              value={stat.base_stat}
-              readOnly
-            /> */}
             <div className={style.totalProgress} >
-              <div style={{width:`${ (10 * stat.base_stat) / 23 }%`}}>{stat.base_stat}</div>
-              {/* <span></span> */}
+              <div style={{width:`${(10 * stat.base_stat) / 23 }%`}}>{stat.base_stat}</div>
             </div>
 
 

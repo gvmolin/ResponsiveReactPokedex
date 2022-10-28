@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useState, useMemo,useEffect } from "react";
+import { useState, useMemo } from "react";
 import style from "./style.module.scss";
 
 interface IProps{
@@ -8,7 +8,8 @@ interface IProps{
 
 interface IContent{
   content:JSX.Element,
-  name:string
+  name:string,
+  height?:string,
 }
 
 export default function Tabs(props:IProps){
@@ -40,7 +41,7 @@ export default function Tabs(props:IProps){
           ))
         }
       </div>
-      <div className={style.contentContainer}>
+      <div className={style.contentContainer} style={{height: current.height||"30vh", overflowY:"scroll"}}>
         {current.content}
       </div>
       

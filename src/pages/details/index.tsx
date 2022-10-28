@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as icons from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+
 import style from "./style.module.scss";
 import capitalizeFLetter from "../../utils/tools/string";
-import Button from "../../components/button";
-import { v4 as uuidv4 } from "uuid";
 import findColorByType from "../../utils/style/typeColors";
+
 import Tabs from "../../components/tabs";
 import Stats from "../../components/stats";
 import Moves from "../../components/moves";
+import Button from "../../components/button";
 
 export default function Details (){
   //DATA
@@ -86,18 +89,18 @@ export default function Details (){
       <Tabs elements={[
         {
           name:"Stats",
-          content:<Stats stats={pokemon.stats}></Stats>
+          content:<Stats stats={pokemon.stats}></Stats>,
+          height:"30vh",
         },
         {
           name:"Moves",
-          content:<Moves moves={pokemon.moves}></Moves>
+          content:<Moves moves={pokemon.moves}></Moves>,
+          height:"40vh",
         },
         {
           name:"Location",
-          content:
-          <>
-            <h1>3</h1>
-          </>
+          content:<h1>3</h1>,
+
         },
         {
           name:"Forms",

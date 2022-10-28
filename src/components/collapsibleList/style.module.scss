@@ -1,0 +1,18 @@
+@import "../../utils/style/index.scss";
+.category{
+  div {
+    div {
+        background-color: $more-lighter-grey;
+        border-radius: $default-border-radius;
+        padding: $default-page-padding;
+        margin: 0.5vh 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+  } 
+}
+
+.none {
+  display: none;
+}

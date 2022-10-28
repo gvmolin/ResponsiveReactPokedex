@@ -1,5 +1,6 @@
-import { useMemo, useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect } from "react";
+import CollapsibleList from "../collapsibleList";
+import capitalizeFLetter from "../../utils/tools/string";
 import style from "./style.module.scss";
 
 interface IProps {
@@ -15,76 +16,58 @@ interface IMove {
     move_learn_method:{
       name:string,
     },
-  },],
+  }],
+}
+
+interface IFormattedMove {
+  name:string,
+  detail:number|string,
 }
 
 export default function Moves(props: IProps) {
+  //DATA
   const [moves, setMoves] = useState(props.moves);
 
+  //METHODS
+  function organizeMove(obj:IMove):IFormattedMove{
+    return {
+      name: capitalizeFLetter(obj.move.name),
+      detail: ( obj.version_group_details[0].move_learn_method.name === "level-up" ?
+        obj.version_group_details[0].level_learned_at :
+        obj.version_group_details[0].move_learn_method.name )
+    };
+  }
+
+  //MOUNTED
   useEffect(()=>{
     setMoves(props.moves);
-    props.moves.forEach(element => {
-      console.log(element.version_group_details[0]);
-    });
-    // console.log(props.moves);
-    
-  });
+  }, []);
 
-  // useMemo(()=> setMoves(props.moves), [props]);
-
+  //VIEW
   return (
     <div className={style.container}>
-      <div className="style.category">
-        <h3>Level up:</h3>
-        {
-          moves.map((move => {
-            if (move.version_group_details[0].move_learn_method.name === "level-up") {
-              return (
-                <div key={uuidv4()}>
-                  <h4>{move.move.name}</h4>
-                  <h6>{move.version_group_details[0].level_learned_at}</h6>
-                </div>
-              );
-            }
-          }))
-        }
-
-      </div>
-
-      <div className="style.category">
-        <h3>Machine:</h3>
-        {
-          moves.map((move => {
-            if (move.version_group_details[0].move_learn_method.name === "machine") {
-              return (
-                <div key={uuidv4()}>
-                  <h4>{move.move.name}</h4>
-                  <h6>{move.version_group_details[0].move_learn_method.name}</h6>
-                </div>
-              );
-            }
-          }))
-        }
-
-      </div>
-
-      <div className="style.category">
-        <h3>Tutor:</h3>
-        {
-          moves.map((move => {
-            if (move.version_group_details[0].move_learn_method.name === "tutor") {
-              return (
-                <div key={uuidv4()}>
-                  <h4>{move.move.name}</h4>
-                  <h6>{move.version_group_details[0].move_learn_method.name}</h6>
-                </div>
-              );
-            }
-          }))
-        }
-
-      </div>
-      
+      <CollapsibleList 
+        title={"Level up"} 
+        list={moves.filter(move => 
+          move.version_group_details[0].move_learn_method.name === "level-up"
+        ).map(move => 
+          organizeMove(move)
+        ).sort((a,b) => (a.detail > b.detail) ? 1 : ((b.detail > a.detail) ? -1 : 0))}
+      />
+      <CollapsibleList
+        title={"Machine"}
+        list={moves.filter(move =>
+          move.version_group_details[0].move_learn_method.name === "machine"
+        ).map(move=> 
+          organizeMove(move)
+        )}
+      />
+      <CollapsibleList
+        title={"Tutor"}
+        list={moves.filter(move =>
+          move.version_group_details[0].move_learn_method.name === "tutor"
+        ).map(move=> organizeMove(move))}
+      />
     </div>
   );
 }

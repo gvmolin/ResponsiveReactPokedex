@@ -1,6 +1,10 @@
-container{
-   div{
-    background-color: green;
-   }
-
+@import "../../utils/style/index.scss";
+.container{
+  button{
+    text-align: start;
+    margin: 1vh 0;
+    background-color: $lighter-grey;
+    width: 100%;
+  }
 }
+
