@@ -21,22 +21,30 @@ export default function Stats (props:IProps){
   });
 
   return(
-    <>
+    <div className={style.container}>
       {stats.map((stat) => (
-        <div key={uuidv4()} className={style.statsContainer}>
+        <div key={uuidv4()} className={style.line}>
           <label htmlFor={`${stat.stat.name}`}>{stat.stat.name}</label>
           <div>
-            <input
+            {/* <input
+              min='0'
+              max='240'
               type="range"
               id={`${stat.stat.name}`}
               name={`${stat.stat.name}`}
               value={stat.base_stat}
               readOnly
-            />
-            <span>{stat.base_stat}</span>
+            /> */}
+            <div className={style.totalProgress} >
+              <div style={{width:`${ (10 * stat.base_stat) / 23 }%`}}>{stat.base_stat}</div>
+              {/* <span></span> */}
+            </div>
+
+
+            
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }

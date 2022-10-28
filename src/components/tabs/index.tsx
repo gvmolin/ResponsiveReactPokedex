@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { useState, useMemo } from "react";
+import { useState, useMemo,useEffect } from "react";
 import style from "./style.module.scss";
 
 interface IProps{
@@ -24,10 +24,12 @@ export default function Tabs(props:IProps){
     <div>
       <div className={style.tabsContainer}>
         {
+          
           props.elements.map(element => (
             <div key={uuidv4()}>
               <button onClick={() => onClickTab(element)}>
                 <h2 
+                
                   className={
                     current.name === element.name ? style.selected : style.nonSelected
                   }
@@ -38,7 +40,7 @@ export default function Tabs(props:IProps){
           ))
         }
       </div>
-      <div>
+      <div className={style.contentContainer}>
         {current.content}
       </div>
       

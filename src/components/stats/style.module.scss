@@ -1,4 +1,77 @@
-.statsContainer{
+@import "../../utils/style/index.scss";
+
+.line:nth-child(1) {
+  .totalProgress {
+    div {
+      background-color: rgba(25, 70, 0, 0.8);
+    }
+  }
+}
+.line:nth-child(2) {
+  .totalProgress {
+    div {
+      background-color: rgba(215, 0, 0, 0.8);
+    }
+  }
+}
+.line:nth-child(3) {
+  .totalProgress {
+    div {
+      background-color: rgba(0, 93, 215, 0.8);
+    }
+  }
+}
+
+.line:nth-child(4) {
+  .totalProgress {
+    div {
+      background-color: rgba(43, 0, 87, 0.8);
+    }
+  }
+}
+.line:nth-child(5) {
+  .totalProgress {
+    div {
+      background-color: rgba(180, 0, 120, 0.8);
+    }
+  }
+}
+.line:nth-child(6) {
+  .totalProgress {
+    div {
+      background-color: rgba(210, 189, 0, 0.8);
+    }
+  }
+}
+
+.line{
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1vw;
+
+  
 }
+
+
+.totalProgress{
+  width: 50vw;
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(255, 255, 255);
+  
+  div{
+    background-color: red;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: $default-border-radius;
+    padding: 1vw;
+    color: white;
+  }
+
+  
+}
+
+
+

@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import findColorByType from "../../utils/style/typeColors";
 import Tabs from "../../components/tabs";
 import Stats from "../../components/stats";
+import Moves from "../../components/moves";
 
 export default function Details (){
   //DATA
@@ -29,7 +30,9 @@ export default function Details (){
       stat:{
         name:"",
       }
-    }]
+    }],
+    moves:[],
+
   });
 
   //METHODS
@@ -37,7 +40,7 @@ export default function Details (){
     await axios.get(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
       .then(res => {
         setPokemon(res.data);
-        console.log(res.data);
+        console.log(pokemon);
       });
   }
 
@@ -45,6 +48,8 @@ export default function Details (){
   useEffect(()=>{
     getPkmn();
   }, []);
+
+  // useMemo(() => getPkmn(), [pokemon]);
 
   //VIEW
   return(
@@ -85,10 +90,7 @@ export default function Details (){
         },
         {
           name:"Moves",
-          content:
-          <>
-            <h1>2</h1>
-          </>
+          content:<Moves moves={pokemon.moves}></Moves>
         },
         {
           name:"Location",
