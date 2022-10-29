@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CollapsibleList from "../collapsibleList";
 import capitalizeFLetter from "../../utils/tools/string";
-import style from "./style.module.scss";
 
 interface IProps {
   moves:IMove[],
@@ -45,7 +44,7 @@ export default function Moves(props: IProps) {
 
   //VIEW
   return (
-    <div className={style.container}>
+    <div>
       <CollapsibleList 
         title={"Level up"} 
         list={moves.filter(move => 

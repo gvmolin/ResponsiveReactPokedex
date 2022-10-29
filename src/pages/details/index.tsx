@@ -14,6 +14,7 @@ import Tabs from "../../components/tabs";
 import Stats from "../../components/stats";
 import Moves from "../../components/moves";
 import Button from "../../components/button";
+import Locations from "../../components/locations";
 
 export default function Details (){
   //DATA
@@ -35,16 +36,27 @@ export default function Details (){
       }
     }],
     moves:[],
-
+    location_area_encounters:"",
   });
+  const [locationsList, setLocationsList] = useState([]);
 
   //METHODS
   async function getPkmn() {
     await axios.get(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
       .then(res => {
         setPokemon(res.data);
-        console.log(pokemon);
+        return res.data;
+      }).then(res => {
+        getLocationsList(res.location_area_encounters);
       });
+  }
+
+  async function getLocationsList(url:Promise<string>) {
+    await axios.get(await url).then(res => {
+      if(res.status === 200){
+        setLocationsList(res.data);
+      }
+    });
   }
 
   //MOUNTED
@@ -89,18 +101,17 @@ export default function Details (){
       <Tabs elements={[
         {
           name:"Stats",
-          content:<Stats stats={pokemon.stats}></Stats>,
+          content:<Stats stats={pokemon.stats} />,
           height:"30vh",
         },
         {
           name:"Moves",
-          content:<Moves moves={pokemon.moves}></Moves>,
+          content:<Moves moves={pokemon.moves} />,
           height:"40vh",
         },
         {
           name:"Location",
-          content:<h1>3</h1>,
-
+          content:<Locations locations={locationsList}/>,
         },
         {
           name:"Forms",

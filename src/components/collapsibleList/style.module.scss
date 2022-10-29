@@ -1,5 +1,14 @@
 @import "../../utils/style/index.scss";
 .category{
+  button{
+    text-align: start;
+    margin: 1vh 0;
+    background-color: $lighter-grey;
+    width: 100%;
+    border-radius: $default-border-radius;
+    padding: $default-page-padding;
+  }
+
   div {
     div {
         background-color: $more-lighter-grey;
