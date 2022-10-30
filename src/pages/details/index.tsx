@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
@@ -17,9 +17,12 @@ import Button from "../../components/button";
 import Locations from "../../components/locations";
 
 export default function Details (){
-  //DATA
-  const params = useParams();
-  const [pokemon, setPokemon] = useState({
+  interface IMega{
+    hasMega:boolean,
+    id:number[]
+  }
+
+  const INITIAL_PKMN = {
     name:"",
     sprites:{
       front_default:"",
@@ -37,7 +40,18 @@ export default function Details (){
     }],
     moves:[],
     location_area_encounters:"",
-  });
+    id:0,
+  };
+
+  const INITIAL_MEGA:IMega = {
+    hasMega:false,
+    id:[],
+  };
+
+  //DATA
+  const params = useParams();
+  const [pokemon, setPokemon] = useState(INITIAL_PKMN);
+  const [mega, setMega] = useState(INITIAL_MEGA);
   const [locationsList, setLocationsList] = useState([]);
 
   //METHODS
@@ -48,7 +62,54 @@ export default function Details (){
         return res.data;
       }).then(res => {
         getLocationsList(res.location_area_encounters);
+        return res;
+      }).then(res => {
+        organizeMega(res.name);
       });
+  }
+
+  async function organizeMega(name:string) {
+    const newMega = mega;
+    let url = `https://pokeapi.co/api/v2/pokemon-form/${name}-mega`;
+    let url2 = "";
+    if(name === "charizard" || name === "mewtwo"){
+      url2 = url + "-y";
+      url = url + "-x";
+    } 
+
+    const id1 = await getMega(url);
+    if(typeof id1 === "string") {
+      newMega.id = [id1];
+    }
+    
+    if(url2 !== "") {
+      const id2 = await getMega(url2);
+      if(typeof id2 === "string") {
+        if(!newMega.id.includes(id2)){
+          newMega.id = [...newMega.id, id2];
+          setMega(newMega);
+        }
+      }
+    } else {
+      setMega(newMega);
+    }
+  }
+
+  async function getMega(url:string):Promise<number|undefined>{
+    try {
+      if (url != "") {
+        let number = 0;
+        await axios.get(url).then(res => {
+          if (res.status === 200) {
+            const split = res.data.pokemon.url.split("/");
+            number = split[split.length - 2];
+          }
+        });
+        return number;
+      }
+    } catch (error) {
+      console.log("This pokemon doesnt have a mega evolution.");
+    }
   }
 
   async function getLocationsList(url:Promise<string>) {
@@ -64,7 +125,12 @@ export default function Details (){
     getPkmn();
   }, []);
 
-  // useMemo(() => getPkmn(), [pokemon]);
+  useMemo(()=>{
+    setMega({
+      hasMega:true,
+      id:mega.id,
+    });
+  }, [locationsList]);
 
   //VIEW
   return(
@@ -72,9 +138,27 @@ export default function Details (){
       {/* HEADER */}
       <header className={style.itemHeader}>
         <Button><FontAwesomeIcon icon={icons.faArrowLeft} /></Button>
-        <h2>{capitalizeFLetter(pokemon.name)}</h2>
+        <div style={{
+          display:"flex",
+          flexDirection:"column",
+          alignItems:"center",
+        }}>
+          <h2>{capitalizeFLetter(pokemon.name)}</h2>
+          <h4>#{pokemon.id}</h4>
+        </div>
         <Button><FontAwesomeIcon icon={icons.faHeart} /></Button>
       </header>
+
+      {
+        mega.id.map((element:number) =>
+          <div key={uuidv4()} className={style.seeMegaButton}>
+            <a href={`/details/${element}/`}>
+              <button>Mega Evolution</button>
+            </a>
+          </div>
+        )
+      }
+    
       
       {/* IMAGE */}
       <div className={style.imgContainer}>
@@ -102,22 +186,23 @@ export default function Details (){
         {
           name:"Stats",
           content:<Stats stats={pokemon.stats} />,
-          height:"30vh",
+          height:"25vh",
         },
         {
           name:"Moves",
           content:<Moves moves={pokemon.moves} />,
-          height:"40vh",
+          height:"50vh",
         },
         {
           name:"Location",
           content:<Locations locations={locationsList}/>,
+          height:"50vh",
         },
         {
-          name:"Forms",
+          name:"Details",
           content:
           <>
-            <h1>4</h1>
+            <h1>details</h1>
           </>
         },
       ]} />

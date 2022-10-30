@@ -1,42 +1,13 @@
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import capitalizeFLetter from "../../utils/tools/string";
 import CollapsibleList from "../collapsibleList";
-import { useState, useEffect, useMemo, SetStateAction } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 interface IProps {
   locations:any[],
 }
 
 export default function Locations(props:IProps){
-  // const [versions, setVersions] = useState([
-  //   { 
-  //     name: "", 
-  //     locations:[{
-  //       location_area:{
-  //         name:"",
-  //       }
-  //     }],
-  //   }
-  // ]);
-  // const [locations, setLocations] = useState([
-  //   {
-  //     location_area:{
-  //       name:""
-  //     },
-  //     version_details:[
-  //       {
-  //         version: {
-  //           name:"",
-  //           url:"",
-  //         },
-  //         enconter_details:[],
-  //         max_chance:0,
-  //       }
-  //     ],
-  //   }
-  // ]);
-
   const [versions, setVersions] = useState([{}]); 
   const [info, setInfo] = useState([{
     name: "",
@@ -72,8 +43,8 @@ export default function Locations(props:IProps){
     const arr:{name:string, locations:string[]}[] = [];
     versions.forEach(version => {
       arr.push({
-        name : `${version}`,
-        locations:[]
+        name: `${version}`,
+        locations: []
       });
     });
     return arr;
@@ -83,7 +54,6 @@ export default function Locations(props:IProps){
     if(versions.length > 1){
       organizeInfo();
     }
-    console.log(info);
     
   }, [versions]);
 
@@ -93,18 +63,21 @@ export default function Locations(props:IProps){
 
   return (
     <div>
-
       {
-        info.map(version => (
-          <CollapsibleList 
-            key={uuidv4()} 
-            title={capitalizeFLetter(version.name.replace(/-/g, " "))} 
-            list={version.locations.map(location => ({
-              name:capitalizeFLetter(location.replace(/-/g, " ")), // capitalizeFLetter(location.location_area.name.replace(/-/g, " ")),
-              detail:"",
-            }))}
-          />
-        ))
+        props.locations.length > 0 ?
+          info.map(version => (
+            <CollapsibleList
+              key={uuidv4()}
+              title={capitalizeFLetter(version.name.replace(/-/g, " "))}
+              list={version.locations.map(location => ({
+                name: capitalizeFLetter(location.replace(/-/g, " ")), // capitalizeFLetter(location.location_area.name.replace(/-/g, " ")),
+                detail: "",
+              }))}
+            />
+          )) :
+          <div>
+            <h4>None locations available</h4>
+          </div>
       }
     </div>
   );
