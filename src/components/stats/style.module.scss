@@ -49,28 +49,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1vw;
-
-  
+  margin-bottom: 1vw;  
 }
-
 
 .totalProgress{
   width: 50vw;
   display: flex;
   justify-content: flex-end;
-  background-color: rgb(255, 255, 255);
   
   div{
-    background-color: red;
     display: flex;
     justify-content: flex-end;
     border-radius: $default-border-radius;
     padding: 1vw;
     color: white;
   }
-
-  
 }
 
 

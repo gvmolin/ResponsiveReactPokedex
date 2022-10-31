@@ -1,12 +1,24 @@
 @import "../../utils/style/index.scss";
 
 .header {
-  background-color: $more-lighter-grey;
+  
   width: 100%;
   height: 20vh;
   display: flex;
   flex-direction: column;
   border-radius: 0 0 20px 20px;
+}
+
+.darkTheme{
+  background-color: $darker-grey;
+
+  h1,h2,h3{
+    color: $more-lighter-grey;
+  }
+}
+
+.lightTheme{
+  background-color: $more-lighter-grey;
 }
 
 .container {
@@ -52,4 +64,19 @@
       }
     }
   }
+
+  .switchContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    
+    .switchComponent{
+      transform: scale(2);
+      margin-right: 3vw;
+    }
+  }
+
+  
 }

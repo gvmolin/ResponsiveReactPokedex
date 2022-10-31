@@ -150,7 +150,7 @@ export default function Details (){
       </header>
 
       {
-        mega.id.map((element:number) =>
+        mega.hasMega && mega.id.map((element: number) =>
           <div key={uuidv4()} className={style.seeMegaButton}>
             <a href={`/details/${element}/`}>
               <button>Mega Evolution</button>

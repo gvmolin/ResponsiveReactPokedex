@@ -1,7 +1,6 @@
 @import "../../utils/style/index.scss";
 
 .card{
-  // border:1px solid;
   border-radius: $default-border-radius;
   background-color: $more-lighter-grey;
   display: flex;
@@ -10,7 +9,7 @@
   justify-content: space-between;
   font-size: 10px;
   height: 25vh;
-  
+  text-decoration: none;
   background-color: $more-lighter-grey;
 
   .imageContainer{

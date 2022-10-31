@@ -29,8 +29,7 @@ export default function Tabs(props:IProps){
           props.elements.map(element => (
             <div key={uuidv4()}>
               <button onClick={() => onClickTab(element)}>
-                <h2 
-                
+                <h2
                   className={
                     current.name === element.name ? style.selected : style.nonSelected
                   }
