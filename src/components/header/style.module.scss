@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
   border-radius: 0 0 20px 20px;
+  z-index:700;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .darkTheme{
@@ -26,7 +30,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
   
 
   .switchContainer{
