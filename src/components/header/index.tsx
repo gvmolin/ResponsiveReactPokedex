@@ -1,10 +1,11 @@
 import style from "./style.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import Switch from "react-input-switch";
 import { ThemeColors } from "../../utils/enum/theme";
-
+import axios from "axios";
+import AutocompleteSearch from "../autocompleteSearch/index";
 
 interface IProps{
   setTheme: any,
@@ -12,16 +13,21 @@ interface IProps{
 }
 
 export default function Header (props:IProps) {
-  const [search, setSearch] = useState(" ");
   const [switchValue, setSwitchValue] = useState(props.currentTheme === ThemeColors.L );
+  const [pokemonList, setPokemonList] = useState([]);
 
-  function onChangeSearch(e:React.FormEvent<HTMLInputElement>){
-    setSearch(e.currentTarget.value);
+  async function getList(){
+    await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=10000&offset=0").then(
+      res => {
+        setPokemonList(res.data.results);
+        console.log(res);
+      }
+    );
   }
 
-  function onSearch(){
-    console.log("search action");
-  }
+  useEffect(() => {
+    getList();
+  }, []);
 
   useEffect(()=>{
     switchValue ? 
@@ -33,20 +39,41 @@ export default function Header (props:IProps) {
       className={`
         ${style.header} 
         ${props.currentTheme === ThemeColors.L ? style.lightTheme : style.darkTheme}
-  ]   `}
+      `}
     >
       <div className={style.container}>
         <div className={style.switchContainer}>
-          <h1>Pokédex</h1>
-          <Switch value={switchValue ? 1 : 0} onChange={setSwitchValue} className={style.switchComponent} />
+          <a href="/"><h1>Pokédex</h1></a>
+          <div>
+            <h3>
+              { props.currentTheme === ThemeColors.D ?
+                <FontAwesomeIcon icon={faMoon} style={{color:"white"}} /> : 
+                <FontAwesomeIcon icon={faSun}/>
+              }
+            </h3>
+            <Switch 
+              value={switchValue ? 1 : 0} 
+              onChange={setSwitchValue} 
+              className={style.switchComponent}
+              styles={{
+                track: {
+                  backgroundColor: "white"
+                },
+                trackChecked: {
+                  backgroundColor: "#222429"
+                },
+                button: {
+                  backgroundColor: "#222429"
+                },
+                buttonChecked: {
+                  backgroundColor: "white"
+                }
+              }}
+            />
+          </div>
         </div>
-        
-        <div>
-          <input type="text" value={search} onChange={onChangeSearch} />
-          <button onClick={onSearch}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
-        </div>  
+        <AutocompleteSearch list={pokemonList} />
       </div>
-      
     </header>
   );
 }

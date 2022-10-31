@@ -57,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
     "eslint-plugin-react": "^7.31.10",
+    "string-similarity": "^4.0.4",
     "typescript-plugin-css-modules": "^3.4.0"
   }
 }

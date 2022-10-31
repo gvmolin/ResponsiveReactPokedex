@@ -1,0 +1,100 @@
+@import "../../utils/style/index.scss";
+
+.blurEffect{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  transition: 1s;
+}
+
+.nothing{
+  transition: 1s;
+}
+
+.container{
+  z-index: 1000;
+  width: 100%;
+
+  .suggestionsContainer{
+    position: absolute;
+    background-color: $lighter-grey;
+    width: 80%;
+    padding: 0 $default-page-padding;
+    // padding-top: 0;
+    border-radius: 0 0 $default-border-radius $default-border-radius;
+
+    a {
+      text-decoration: none;
+    }
+
+    hr{
+      width: 90%;
+    }
+    
+    ul{
+      text-decoration: none;
+      list-style-type: none;
+      width: 90%;
+
+      li{
+        // margin: 3vh 0; 
+        padding: 2vh 0;
+        // border-bottom: solid 1px black ;
+      }
+    }
+  }
+
+  .inputContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  
+    input {
+      width: 100%;
+      border: none;
+      border-radius: $default-border-radius 0 0 $default-border-radius;
+      height: 6vh;
+      background-color: $lighter-grey;
+      padding: 0 10px;
+      font-size: 3vh;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  
+    button {
+      border: none;
+      border-radius: 0 $default-border-radius $default-border-radius 0;
+      width: 20%;
+      background-color: $lighter-grey;
+      font-size: 3vh;
+  
+      &:active {
+        background-color: $grey;
+        transition: 0.5s;
+      }
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .showingSearch{
+    button {
+      border-radius: 0 $default-border-radius 0 0;
+      border-bottom: 1px solid $grey;
+    }
+
+    input{
+      border-radius: $default-border-radius 0 0 0;
+      border-bottom: 1px solid $grey;
+    }
+  }
+}

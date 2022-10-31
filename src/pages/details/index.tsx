@@ -137,7 +137,7 @@ export default function Details (){
     <div className={style.content}>
       {/* HEADER */}
       <header className={style.itemHeader}>
-        <Button><FontAwesomeIcon icon={icons.faArrowLeft} /></Button>
+        <Button onClick={() => history.back()}><FontAwesomeIcon icon={icons.faArrowLeft} /></Button>
         <div style={{
           display:"flex",
           flexDirection:"column",
@@ -159,7 +159,6 @@ export default function Details (){
         )
       }
     
-      
       {/* IMAGE */}
       <div className={style.imgContainer}>
         <img src={pokemon.sprites?.front_default} />

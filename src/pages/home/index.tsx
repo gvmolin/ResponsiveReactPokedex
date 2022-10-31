@@ -2,13 +2,8 @@ import { useEffect, useState } from "react";
 import Card from "../../components/card";
 import style from "./style.module.scss";
 import axios from "axios";
-import {ThemeColors} from "../../utils/enum/theme";
 
-interface IProps {
-  theme:string
-}
-
-export default function Home (props:IProps){
+export default function Home (){
   const [pokemons, setPokemons] = useState([]);
 
   async function getPokemonList(){

@@ -23,7 +23,7 @@ export default function AppRouter() {
       <div className={`${theme === ThemeColors.L ? style.lightTheme : style.darkTheme}`}>
         <Header setTheme={setTheme} currentTheme={theme ? theme : ThemeColors.D} />
         <Routes>
-          <Route path='/' element={<Home theme={theme ? theme : ThemeColors.D} />} />
+          <Route path='/' element={<Home />} />
           <Route path='/details/:id' element={<Details />} />
         </Routes>
       </div>
