@@ -51,13 +51,13 @@ export default function AutocompleteSearch (props:IProps){
             <div className={style.suggestionsContainer}>
               <ul>
                 {searchResult.map((result, i) => (
-                  <>
-                    <li key={uuidv4()}><a href={`/details/${result.target}`}><h4>{result.target}</h4></a></li>
+                  <div key={uuidv4()}>
+                    <li><a href={`/details/${result.target}`}><h4>{result.target}</h4></a></li>
                     {
                       i + 1 < searchResult.length &&
                       <div style={{ display: "flex", width: "110%", justifyContent: "center" }}><hr /></div>
                     }
-                  </>
+                  </div>
 
                 ))}
               </ul>

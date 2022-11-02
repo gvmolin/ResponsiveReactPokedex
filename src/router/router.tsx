@@ -5,6 +5,7 @@ import Details from "../pages/details";
 import { useState, useEffect } from "react";
 import { ThemeColors } from "../utils/enum/theme";
 import style from "./style.module.scss";
+import Favorites from "../pages/favorites";
 
 export default function AppRouter() {
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
@@ -25,6 +26,7 @@ export default function AppRouter() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/details/:id' element={<Details />} />
+          <Route path='/favorites' element={<Favorites />} />
         </Routes>
       </div>
 

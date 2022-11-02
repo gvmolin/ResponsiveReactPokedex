@@ -53,6 +53,7 @@ export default function Details (){
   const [pokemon, setPokemon] = useState(INITIAL_PKMN);
   const [mega, setMega] = useState(INITIAL_MEGA);
   const [locationsList, setLocationsList] = useState([]);
+  const [favorite, setFavorite] = useState(false);
 
   //METHODS
   async function getPkmn() {
@@ -64,6 +65,7 @@ export default function Details (){
         getLocationsList(res.location_area_encounters);
         return res;
       }).then(res => {
+        getFavs(res.name);
         organizeMega(res.name);
       });
   }
@@ -120,6 +122,47 @@ export default function Details (){
     });
   }
 
+  function setLSFavorites(){
+    const favs = localStorage.getItem("favorites");
+    if(favs && !checkFavs(pokemon.name, favs.split(","))) {
+      localStorage.setItem("favorites", `${favs},${pokemon.name.replace(/ /g, "")}`);
+      setFavorite(true);
+    } else {
+      localStorage.setItem("favorites", `${pokemon.name.replace(/ /g, "")}`);
+      setFavorite(true);
+    }
+  }
+
+  function rmLSFavorites(){
+    const favs = localStorage.getItem("favorites")?.split(",");
+    if(favs && checkFavs(pokemon.name, favs)) {
+      const indexOf = favs.indexOf(pokemon.name);
+      if(indexOf > -1) {
+        favs.splice(indexOf, 1);
+        setFavorite(false);
+        localStorage.setItem("favorites", favs.join(","));
+      } 
+    }
+  }
+
+  function controllerLSFavorites(){
+    favorite ? rmLSFavorites() : setLSFavorites();
+  }
+
+  function checkFavs(str:string, arr:string[]){
+    if(arr && str != "") {
+      const found = arr.find(arrElement => {
+        return str.replace(/ /g, "") === arrElement.replace(/ /g, "");
+      });
+      return found?.length ? true : false;
+    }
+  }
+
+  function getFavs(str:string){
+    const favs = localStorage.getItem("favorites");
+    if(favs && checkFavs(str ,favs.split(","))) setFavorite(true);
+  }
+
   //MOUNTED
   useEffect(()=>{
     getPkmn();
@@ -146,7 +189,11 @@ export default function Details (){
           <h2>{capitalizeFLetter(pokemon.name)}</h2>
           <h4>#{pokemon.id}</h4>
         </div>
-        <Button><FontAwesomeIcon icon={icons.faHeart} /></Button>
+        <Button 
+          selected={favorite} 
+          type="favorite" 
+          onClick={controllerLSFavorites}
+        ><FontAwesomeIcon icon={icons.faHeart} /></Button>
       </header>
 
       {

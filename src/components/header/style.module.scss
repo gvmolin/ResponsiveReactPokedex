@@ -18,6 +18,12 @@
   h1,h2,h3{
     color: $more-lighter-grey;
   }
+
+  a{
+    h3{
+      color: $more-lighter-grey;
+    }
+  }
 }
 
 .lightTheme{
