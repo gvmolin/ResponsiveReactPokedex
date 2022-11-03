@@ -11,13 +11,11 @@ export default function Home (){
   const [page, setPage] = useState(1);
 
   async function getPokemonList(){
-    console.log(page);
     await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${(page - 1) * 30}&limit=${30}`).then(res => {
       const newPokemons = pokemons.length > 1 ?
         [...pokemons, ...res.data.results] :
         [...res.data.results];
       setPokemons(newPokemons);
-      // console.log(arr);
     }).catch(err => {
       console.log(err);
     });
@@ -37,7 +35,6 @@ export default function Home (){
 
   useEffect(() => {
     getPokemonList();
-    // console.log(page);
   }, [page]);
 
   return (

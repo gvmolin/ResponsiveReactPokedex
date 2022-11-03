@@ -11,15 +11,20 @@ export default function Favorites (){
 
   async function getFavsList(){
     setFavorites([]);
+    console.log(localStorage);
     const favs = localStorage.getItem("favorites")?.split(",");
+    console.log(favs);
     favs && favs.map( fav => {
-      const obj = {
-        name:fav,
-        url:`https://pokeapi.co/api/v2/pokemon/${fav}`
-      };
-      favorites.length ? 
-        setFavorites(prevFavorites => [...prevFavorites, obj]) : 
-        setFavorites([obj]);
+      if(fav.length){
+        const obj = {
+          name:fav,
+          url:`https://pokeapi.co/api/v2/pokemon/${fav}`
+        };
+        favorites.length ? 
+          setFavorites(prevFavorites => [...prevFavorites, obj]) : 
+          setFavorites([obj]);
+      }
+      
     });
   }
 

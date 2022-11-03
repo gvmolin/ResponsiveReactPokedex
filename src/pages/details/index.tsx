@@ -9,6 +9,7 @@ import * as icons from "@fortawesome/free-solid-svg-icons";
 import style from "./style.module.scss";
 import capitalizeFLetter from "../../utils/tools/string";
 import findColorByType from "../../utils/style/typeColors";
+import { getFavs, controllerLSFavorites } from "../../utils/tools/favorites";
 
 import Tabs from "../../components/tabs";
 import Stats from "../../components/stats";
@@ -65,7 +66,7 @@ export default function Details (){
         getLocationsList(res.location_area_encounters);
         return res;
       }).then(res => {
-        getFavs(res.name);
+        getFavs(res.name, setFavorite);
         organizeMega(res.name);
       });
   }
@@ -122,49 +123,9 @@ export default function Details (){
     });
   }
 
-  function setLSFavorites(){
-    const favs = localStorage.getItem("favorites");
-    if(favs && !checkFavs(pokemon.name, favs.split(","))) {
-      localStorage.setItem("favorites", `${favs},${pokemon.name.replace(/ /g, "")}`);
-      setFavorite(true);
-    } else {
-      localStorage.setItem("favorites", `${pokemon.name.replace(/ /g, "")}`);
-      setFavorite(true);
-    }
-  }
-
-  function rmLSFavorites(){
-    const favs = localStorage.getItem("favorites")?.split(",");
-    if(favs && checkFavs(pokemon.name, favs)) {
-      const indexOf = favs.indexOf(pokemon.name);
-      if(indexOf > -1) {
-        favs.splice(indexOf, 1);
-        setFavorite(false);
-        localStorage.setItem("favorites", favs.join(","));
-      } 
-    }
-  }
-
-  function controllerLSFavorites(){
-    favorite ? rmLSFavorites() : setLSFavorites();
-  }
-
-  function checkFavs(str:string, arr:string[]){
-    if(arr && str != "") {
-      const found = arr.find(arrElement => {
-        return str.replace(/ /g, "") === arrElement.replace(/ /g, "");
-      });
-      return found?.length ? true : false;
-    }
-  }
-
-  function getFavs(str:string){
-    const favs = localStorage.getItem("favorites");
-    if(favs && checkFavs(str ,favs.split(","))) setFavorite(true);
-  }
-
   //MOUNTED
   useEffect(()=>{
+    // localStorage.clear();
     getPkmn();
   }, []);
 
@@ -191,8 +152,8 @@ export default function Details (){
         </div>
         <Button 
           selected={favorite} 
-          type="favorite" 
-          onClick={controllerLSFavorites}
+          type="favorite"
+          onClick={ () => controllerLSFavorites(favorite, pokemon.name, setFavorite)}
         ><FontAwesomeIcon icon={icons.faHeart} /></Button>
       </header>
 
