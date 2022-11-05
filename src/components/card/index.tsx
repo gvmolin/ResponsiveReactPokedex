@@ -2,16 +2,20 @@ import findColorByType from "../../utils/style/typeColors";
 import capitalizeFLetter from "../../utils/tools/string";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import Button from "../button";
+import { controllerLSFavorites, getFavs } from "../../utils/tools/favorites";
 import style from "./style.module.scss";
 
-interface IData {
+interface IProps {
   data:{
     name:string,
     url:string,
   }
 }
 
-export default function Card (props:IData) {
+export default function Card (props:IProps) :React.ReactElement{
   const [pokemon, setPokemon] = useState({
     id:0,
     name:"",
@@ -28,8 +32,9 @@ export default function Card (props:IData) {
     name:"",
     color:"",
   });
+  const [favorite, setFavorite] = useState(false);
 
-  async function getPkmn() {
+  async function getPkmn() :Promise<void> {
     await axios.get(props.data.url)
       .then(res => {
         setPokemon(res.data);
@@ -43,21 +48,30 @@ export default function Card (props:IData) {
 
   useEffect(()=>{
     getPkmn();
+    getFavs(props.data.name, setFavorite);
   },[]);
 
   return (
-    <a
-      className={style.card} 
-      style={{backgroundColor: color?.color}}
-      href={`/details/${pokemon.id}`}
-    >
-      <div className={style.imageContainer}>
-        <img src={pokemon.sprites.front_default} alt="Pokemon image" />
-      </div>
-      <div className={style.textContainer}>
-        <h3>#{pokemon.id}</h3>
-        <h2>{capitalizeFLetter(pokemon.name)}</h2>
-      </div>
-    </a>
+    <div className={style.cardContainer}>
+      <Button
+        selected={favorite}
+        type="favorite"
+        onClick={() => controllerLSFavorites(favorite, pokemon.name, setFavorite)}
+      ><FontAwesomeIcon icon={faHeart} /></Button>
+      <a
+        className={style.card}
+        style={{ backgroundColor: color?.color }}
+        href={`/details/${pokemon.id}`}
+      >
+        <div className={style.imageContainer}>
+          
+          <img src={pokemon.sprites.front_default} alt="Pokemon image" />
+        </div>
+        <div className={style.textContainer}>
+          <h3>#{pokemon.id}</h3>
+          <h2>{capitalizeFLetter(pokemon.name)}</h2>
+        </div>
+      </a>
+    </div>
   );
 }

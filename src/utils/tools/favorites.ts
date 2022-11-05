@@ -1,4 +1,4 @@
-export function setLSFavorites(str:string, setFunc:React.Dispatch<React.SetStateAction<boolean>>){
+export function setLSFavorites(str:string, setFunc:React.Dispatch<React.SetStateAction<boolean>>):void{
   const favs = localStorage.getItem("favorites");
   if(favs && !checkFavs(str, favs.split(","))) {
     localStorage.setItem("favorites", `${favs}${str.replace(/ /g, "")},`);
@@ -9,7 +9,7 @@ export function setLSFavorites(str:string, setFunc:React.Dispatch<React.SetState
   }
 }
 
-export function rmLSFavorites(str:string, setFunc: React.Dispatch<React.SetStateAction<boolean>>){
+export function rmLSFavorites(str:string, setFunc: React.Dispatch<React.SetStateAction<boolean>>):void{
   const favs = localStorage.getItem("favorites")?.split(",");
   if(favs && checkFavs(str, favs)) {
     const indexOf = favs.indexOf(str);
@@ -21,20 +21,21 @@ export function rmLSFavorites(str:string, setFunc: React.Dispatch<React.SetState
   }
 }
 
-export function controllerLSFavorites(bool:boolean, str:string, setFunc:React.Dispatch<React.SetStateAction<boolean>>){
+export function controllerLSFavorites(bool:boolean, str:string, setFunc:React.Dispatch<React.SetStateAction<boolean>>):void{
   bool ? rmLSFavorites(str, setFunc) : setLSFavorites(str, setFunc);
 }
 
-export function checkFavs(str:string, arr:string[]){
+export function checkFavs(str:string, arr:string[]) :boolean{
   if(arr && str != "") {
     const found = arr.find(arrElement => {
       return str.replace(/ /g, "") === arrElement.replace(/ /g, "");
     });
-    return found?.length ? true : false;
+    return found !== undefined && found?.length > 0;
   }
+  return false;
 }
 
-export function getFavs(str:string, setFunction:React.Dispatch<React.SetStateAction<boolean>>){
+export function getFavs(str:string, setFunction:React.Dispatch<React.SetStateAction<boolean>>) :void{
   const favs = localStorage.getItem("favorites");
   if(favs && checkFavs(str, favs.split(","))) setFunction(true);
 }

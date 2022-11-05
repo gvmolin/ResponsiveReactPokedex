@@ -1,5 +1,16 @@
 @import "../../utils/style/index.scss";
 
+.cardContainer{
+  position: relative;
+
+  button{
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 600;
+  }
+}
+
 .card{
   border-radius: $default-border-radius;
   background-color: $more-lighter-grey;
