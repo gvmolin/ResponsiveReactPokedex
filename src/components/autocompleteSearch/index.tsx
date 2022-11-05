@@ -9,17 +9,17 @@ interface IProps {
   list: any[]
 }
 
-export default function AutocompleteSearch (props:IProps){
+export default function AutocompleteSearch (props:IProps) :React.ReactElement{
   const [search, setSearch] = useState(" ");
   const [searchResult, setSearchResult] = useState([{
     target:""
   }]);
 
-  function onChangeSearch(e:React.FormEvent<HTMLInputElement>){
+  function onChangeSearch(e:React.FormEvent<HTMLInputElement>):void{
     setSearch(e.currentTarget.value);
   }
 
-  function filterList(arr){
+  function filterList(arr:any[]):void{
     const results = findBestMatch(search, arr.map(pokemon => `${pokemon.name.toLowerCase()}`));
     const filtered = results.ratings
       .filter(result => result.rating > 0.4)

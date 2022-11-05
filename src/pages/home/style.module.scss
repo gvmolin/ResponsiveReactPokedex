@@ -19,3 +19,40 @@
 .light{
   background-color: white;
 }
+
+@media(min-width:600px) {
+  .content{
+    padding: $default-desktop-padding;
+    padding-top:1vw;
+
+    .list{
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      column-gap: 1vw;
+      row-gap: 1vw;
+    }
+  }
+}
+
+@media(min-width:800px) {
+  .content{
+    .list{
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
+}
+
+@media(min-width:1280px) {
+  .content{
+    .list{
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
+}
+
+@media(min-width:1600px) {
+  .content{
+    .list{
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
+}

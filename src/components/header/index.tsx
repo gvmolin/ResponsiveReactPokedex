@@ -35,7 +35,7 @@ export default function Header(props: IProps):ReactElement {
 
   return (
     <>
-      <div style={{height:"20vh"}}></div>
+      <div className={style.fixedHeader}></div>
       <header
         className={`
         ${style.header} 
@@ -53,7 +53,7 @@ export default function Header(props: IProps):ReactElement {
                 ><FontAwesomeIcon icon={faHeart}></FontAwesomeIcon>
                 </h3>
               </a>
-              <h3 style={{width:"6vw", marginLeft:"1vw"}}>
+              <h3 className={style.themeIcon}>
                 {props.currentTheme === ThemeColors.D ?
                   <FontAwesomeIcon icon={faMoon} style={{ color: "white" }} /> :
                   <FontAwesomeIcon icon={faSun} />

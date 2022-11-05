@@ -98,3 +98,79 @@
     }
   }
 }
+
+@media(min-width:600px) {
+  .container {
+    .inputContainer {
+      padding: 0;
+      margin: 0;
+      height: 7vh;
+      width: 100%;
+
+      input {
+        min-height: 0;
+        width: 90%;
+        height: 100%;
+        padding: 0 10px;
+        font-size: 3vh;
+      }
+
+      button {
+        padding: 0;
+        padding-right: $default-desktop-padding;
+        height: 100%;
+        border: none;
+        width: 20%;
+        background-color: $lighter-grey;
+        font-size: 3vh;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        &:active {
+          background-color: $grey;
+          transition: 0.5s;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .suggestionsContainer{
+      position: absolute;
+      background-color: $lighter-grey;
+      width: 92%;
+      padding: 0 $default-desktop-padding;
+      // padding-top: 0;
+      border-radius: 0 0 $default-border-radius $default-border-radius;
+  
+      a {
+        text-decoration: none;
+      }
+  
+      hr{
+        width: 100%;
+      }
+      
+      ul{
+        text-decoration: none;
+        list-style-type: none;
+        width: 90%;
+  
+        li{
+          padding: 2vh 0;
+
+          h4{
+            height: 100%;
+            &:hover{
+              color: rgba(0, 0, 0, 0.5);
+            }
+          }
+          
+        }
+      }
+    }  
+  }
+}
