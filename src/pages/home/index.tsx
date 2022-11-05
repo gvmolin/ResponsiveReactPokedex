@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../components/card";
 import style from "./style.module.scss";
 import axios from "axios";
 
-export default function Home (){
+export default function Home () :React.ReactElement{
   const [pokemons, setPokemons] = useState([{
     name:"",
     url:""
   }]);
   const [page, setPage] = useState(1);
 
-  async function getPokemonList(){
+  async function getPokemonList() :Promise<void>{
     await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${(page - 1) * 30}&limit=${30}`).then(res => {
       const newPokemons = pokemons.length > 1 ?
         [...pokemons, ...res.data.results] :
@@ -21,16 +21,17 @@ export default function Home (){
     });
   }
 
-  function scrollListener(e:any){
-    if(e.target?.documentElement.scrollHeight ===
-    (e.target?.documentElement.scrollTop + window.innerHeight)){
+  function scrollListener(e:Event) :void{
+    const target = e.target as Document;
+    if(target.documentElement.scrollHeight ===
+    (target.documentElement.scrollTop + window.innerHeight)){
       setPage(prevPage => prevPage + 1);
     }
   }
 
   useEffect(() => {
     getPokemonList();
-    window.addEventListener("scroll", scrollListener);
+    window?.addEventListener("scroll", scrollListener);
   }, []);
 
   useEffect(() => {

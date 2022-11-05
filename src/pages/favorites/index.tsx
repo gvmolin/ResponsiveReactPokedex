@@ -9,7 +9,7 @@ export default function Favorites (){
     url:""
   }]);
 
-  async function getFavsList(){
+  async function getFavsList() :Promise<void>{
     setFavorites([]);
     console.log(localStorage);
     const favs = localStorage.getItem("favorites")?.split(",");
@@ -24,7 +24,6 @@ export default function Favorites (){
           setFavorites(prevFavorites => [...prevFavorites, obj]) : 
           setFavorites([obj]);
       }
-      
     });
   }
 

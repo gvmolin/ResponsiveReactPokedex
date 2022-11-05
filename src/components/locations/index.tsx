@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
 import capitalizeFLetter from "../../utils/tools/string";
 import CollapsibleList from "../collapsibleList";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, ReactElement } from "react";
 
 interface IProps {
   locations:any[],
 }
 
-export default function Locations(props:IProps){
+export default function Locations(props:IProps) : ReactElement{
   const [versions, setVersions] = useState([{}]); 
   const [info, setInfo] = useState([{
     name: "",

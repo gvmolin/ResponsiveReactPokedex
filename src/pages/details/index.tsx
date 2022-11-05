@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, } from "react";
+import React, { useEffect, useState, useMemo, } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
@@ -18,7 +18,7 @@ import Moves from "../../components/moves";
 import Button from "../../components/button";
 import Locations from "../../components/locations";
 
-export default function Details (){
+export default function Details (): React.ReactElement{
   interface IMega{
     hasMega:boolean,
     id:number[]
@@ -67,7 +67,7 @@ export default function Details (){
   const navigate = useNavigate();
 
   //METHODS
-  async function getPkmn() {
+  async function getPkmn() :Promise<void> {
     await axios.get(`https://pokeapi.co/api/v2/pokemon/${params.id}`)
       .then(res => {
         setPokemon(res.data);
@@ -81,7 +81,7 @@ export default function Details (){
       });
   }
 
-  async function organizeMega(name:string) {
+  async function organizeMega(name:string) :Promise<void> {
     const newMega = INITIAL_MEGA;
     let url = `https://pokeapi.co/api/v2/pokemon-form/${name}-mega`;
     let url2 = "";
@@ -110,7 +110,7 @@ export default function Details (){
     }
   }
 
-  async function getMega(url:string):Promise<number|undefined>{
+  async function getMega(url:string) :Promise<number|undefined>{
     try {
       if (url != "") {
         let number = 0;
@@ -127,7 +127,7 @@ export default function Details (){
     }
   }
 
-  async function getLocationsList(url:Promise<string>) {
+  async function getLocationsList(url:Promise<string>) :Promise<void> {
     await axios.get(await url).then(res => {
       if(res.status === 200){
         setLocationsList(res.data);
@@ -135,11 +135,11 @@ export default function Details (){
     });
   }
 
-  function prevPage(e){
+  function prevPage(e) :void{
     e && navigate(`/details/${pokemon.id - 1}`);
   }
 
-  function nextPage(e){
+  function nextPage(e) :void{
     e && navigate(`/details/${pokemon.id + 1}`);
   }
 

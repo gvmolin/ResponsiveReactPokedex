@@ -16,7 +16,7 @@ export default function Header(props: IProps):ReactElement {
   const [switchValue, setSwitchValue] = useState(props.currentTheme === ThemeColors.L);
   const [pokemonList, setPokemonList] = useState([]);
 
-  async function getList() {
+  async function getList() :Promise<void> {
     await axios.get("https://pokeapi.co/api/v2/pokemon/?limit=10000&offset=0").then(
       res => {
         setPokemonList(res.data.results);

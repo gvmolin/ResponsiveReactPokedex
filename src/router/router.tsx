@@ -7,7 +7,7 @@ import { ThemeColors } from "../utils/enum/theme";
 import style from "./style.module.scss";
 import Favorites from "../pages/favorites";
 
-export default function AppRouter() {
+export default function AppRouter(): JSX.Element {
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
   useEffect(()=>{
