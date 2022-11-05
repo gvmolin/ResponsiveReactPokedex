@@ -37,7 +37,7 @@ export default function Favorites (){
     <div className={style.content}>
       <div className={style.list}>
         {favorites.map((pokemon,i) => (
-          pokemon.url != "" && <Card key={i} data={{name:pokemon.name, url:pokemon.url}} />
+          pokemon.url != "" && pokemon.name.length && <Card key={i} data={{name:pokemon.name, url:pokemon.url}} />
         ))}
       </div>
     </div>

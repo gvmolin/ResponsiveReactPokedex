@@ -1,10 +1,11 @@
-import { useEffect, useState, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useMemo, } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as icons from "@fortawesome/free-solid-svg-icons";
+import { useSwipeable } from "react-swipeable";
 
 import style from "./style.module.scss";
 import capitalizeFLetter from "../../utils/tools/string";
@@ -55,6 +56,15 @@ export default function Details (){
   const [mega, setMega] = useState(INITIAL_MEGA);
   const [locationsList, setLocationsList] = useState([]);
   const [favorite, setFavorite] = useState(false);
+  const handlersLeftBar = useSwipeable({
+    preventScrollOnSwipe: true,
+    onSwipedRight: (eventData) => prevPage(eventData)
+  });
+  const handlersRightBar = useSwipeable({
+    preventScrollOnSwipe: true,
+    onSwipedLeft: (eventData) => nextPage(eventData)
+  });
+  const navigate = useNavigate();
 
   //METHODS
   async function getPkmn() {
@@ -72,7 +82,7 @@ export default function Details (){
   }
 
   async function organizeMega(name:string) {
-    const newMega = mega;
+    const newMega = INITIAL_MEGA;
     let url = `https://pokeapi.co/api/v2/pokemon-form/${name}-mega`;
     let url2 = "";
     if(name === "charizard" || name === "mewtwo"){
@@ -83,6 +93,7 @@ export default function Details (){
     const id1 = await getMega(url);
     if(typeof id1 === "string") {
       newMega.id = [id1];
+      newMega.hasMega = true;
     }
     
     if(url2 !== "") {
@@ -90,6 +101,7 @@ export default function Details (){
       if(typeof id2 === "string") {
         if(!newMega.id.includes(id2)){
           newMega.id = [...newMega.id, id2];
+          newMega.hasMega = true;
           setMega(newMega);
         }
       }
@@ -123,11 +135,29 @@ export default function Details (){
     });
   }
 
+  function prevPage(e){
+    e && navigate(`/details/${pokemon.id - 1}`);
+  }
+
+  function nextPage(e){
+    e && navigate(`/details/${pokemon.id + 1}`);
+  }
+
+
+
   //MOUNTED
   useEffect(()=>{
-    // localStorage.clear();
     getPkmn();
   }, []);
+
+  useEffect(()=>{
+    organizeMega(pokemon.name);
+  }, [pokemon]);
+
+  useEffect(()=>{
+    setFavorite(false);
+    getPkmn();
+  }, [params]);
 
   useMemo(()=>{
     setMega({
@@ -169,7 +199,9 @@ export default function Details (){
     
       {/* IMAGE */}
       <div className={style.imgContainer}>
+        <div {...handlersLeftBar} style={{height:"50vh",width:"20vw", position:"absolute", top:"1000", left:"0"}}></div>
         <img src={pokemon.sprites?.front_default} />
+        <div {...handlersRightBar} style={{height:"50vh",width:"20vw", position:"absolute", top:"1000", right:"0"}}></div>
       </div>
       
       {/* COLORED TYPE TAGS */}
