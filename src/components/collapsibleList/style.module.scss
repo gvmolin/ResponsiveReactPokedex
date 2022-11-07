@@ -11,17 +11,38 @@
 
   div {
     div {
-        background-color: $more-lighter-grey;
-        border-radius: $default-border-radius;
-        padding: $default-page-padding;
-        margin: 0.5vh 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+      background-color: $more-lighter-grey;
+      border-radius: $default-border-radius;
+      padding: $default-page-padding;
+      margin: 0.5vh 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   } 
 }
 
 .none {
   display: none;
+}
+
+@media(min-width:600px) {
+  .category{
+    padding-bottom: 1vh;
+    button{
+      font-size: 2vh;
+      padding: 1vw;
+      height: 5vh;
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+
+    div {
+      div {
+        padding: 1vh;
+      }
+    } 
+  }
 }

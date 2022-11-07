@@ -3,13 +3,13 @@ import { useState, useMemo } from "react";
 import style from "./style.module.scss";
 
 interface IProps{
-  elements:IContent[]
+  elements:IContent[],
+  height?:string
 }
 
 interface IContent{
   content:JSX.Element,
-  name:string,
-  height?:string,
+  name:string
 }
 
 export default function Tabs(props:IProps){
@@ -25,7 +25,6 @@ export default function Tabs(props:IProps){
     <div>
       <div className={style.tabsContainer}>
         {
-          
           props.elements.map(element => (
             <div key={uuidv4()}>
               <button onClick={() => onClickTab(element)}>
@@ -40,10 +39,9 @@ export default function Tabs(props:IProps){
           ))
         }
       </div>
-      <div className={style.contentContainer} style={{height: current.height||"30vh", overflowY:"scroll"}}>
+      <div className={style.contentContainer} style={{height:"100%", overflowY:"auto"}}>
         {current.content}
       </div>
-      
     </div>
   );
 }

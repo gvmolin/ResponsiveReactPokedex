@@ -59,3 +59,40 @@
 .none{
   display: none;
 }
+
+@media(min-width:600px){
+  .content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $default-desktop-padding;
+    padding-top: 1vh;
+    
+
+    .container{
+      width: 40%;
+      header{
+        button{
+          font-size: 3vh;
+        }
+      }
+    }
+
+    .typeTag{
+      width: 44%;
+    }
+  }
+
+  .seeMegaButton{
+    margin-bottom: 1vh;
+    button{
+      font-size: 2vh;
+      width: 100%;
+      border-radius: $default-border-radius;
+      padding: 1vh;
+      background-color: $lighter-grey;
+    }
+  }
+  
+
+}

@@ -169,82 +169,85 @@ export default function Details (): React.ReactElement{
   //VIEW
   return(
     <div className={style.content}>
-      {/* HEADER */}
-      <header className={style.itemHeader}>
-        <Button onClick={() => history.back()}><FontAwesomeIcon icon={icons.faArrowLeft} /></Button>
-        <div style={{
-          display:"flex",
-          flexDirection:"column",
-          alignItems:"center",
-        }}>
-          <h2>{capitalizeFLetter(pokemon.name)}</h2>
-          <h4>#{pokemon.id}</h4>
-        </div>
-        <Button 
-          selected={favorite} 
-          type="favorite"
-          onClick={ () => controllerLSFavorites(favorite, pokemon.name, setFavorite)}
-        ><FontAwesomeIcon icon={icons.faHeart} /></Button>
-      </header>
-
-      {
-        mega.hasMega && mega.id.map((element: number) =>
-          <div key={uuidv4()} className={style.seeMegaButton}>
-            <a href={`/details/${element}/`}>
-              <button>Mega Evolution</button>
-            </a>
+      <div className={style.container}>
+        {/* HEADER */}
+        <header className={style.itemHeader}>
+          <Button onClick={() => history.back()}><FontAwesomeIcon icon={icons.faArrowLeft} /></Button>
+          <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}>
+            <h2>{capitalizeFLetter(pokemon.name)}</h2>
+            <h4>#{pokemon.id}</h4>
           </div>
-        )
-      }
-    
-      {/* IMAGE */}
-      <div className={style.imgContainer}>
-        <div {...handlersLeftBar} style={{height:"50vh",width:"20vw", position:"absolute", top:"1000", left:"0"}}></div>
-        <img src={pokemon.sprites?.front_default} />
-        <div {...handlersRightBar} style={{height:"50vh",width:"20vw", position:"absolute", top:"1000", right:"0"}}></div>
-      </div>
-      
-      {/* COLORED TYPE TAGS */}
-      <div className={style.typeTagsContainer}>
-        {pokemon.types.map(type => {
-          const tagColor = findColorByType(type.type.name);
-          return (
-            <div
-              key={uuidv4()}
-              style={{ backgroundColor: `${tagColor.color}` }}
-              className={style.typeTag}
-            >
-              <span>{capitalizeFLetter(type.type.name)}</span>
+          <Button
+            selected={favorite}
+            type="favorite"
+            onClick={() => controllerLSFavorites(favorite, pokemon.name, setFavorite)}
+          ><FontAwesomeIcon icon={icons.faHeart} /></Button>
+        </header>
+
+        {
+          mega.hasMega && mega.id.map((element: number) =>
+            <div key={uuidv4()} className={style.seeMegaButton}>
+              <a href={`/details/${element}/`}>
+                <button>Mega Evolution</button>
+              </a>
             </div>
-          );
-        })}
+          )
+        }
+
+        {/* IMAGE */}
+        <div className={style.imgContainer}>
+          <div {...handlersLeftBar} style={{ height: "50vh", width: "20vw", position: "absolute", top: "1000", left: "0" }}></div>
+          <img src={pokemon.sprites?.front_default} />
+          <div {...handlersRightBar} style={{ height: "50vh", width: "20vw", position: "absolute", top: "1000", right: "0" }}></div>
+        </div>
+
+        {/* COLORED TYPE TAGS */}
+        <div className={style.typeTagsContainer}>
+          {pokemon.types.map(type => {
+            const tagColor = findColorByType(type.type.name);
+            return (
+              <div
+                key={uuidv4()}
+                style={{ backgroundColor: `${tagColor.color}` }}
+                className={style.typeTag}
+              >
+                <span>{capitalizeFLetter(type.type.name)}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* TABS */}
-      <Tabs elements={[
-        {
-          name:"Stats",
-          content:<Stats stats={pokemon.stats} />,
-          height:"25vh",
-        },
-        {
-          name:"Moves",
-          content:<Moves moves={pokemon.moves} />,
-          height:"50vh",
-        },
-        {
-          name:"Location",
-          content:<Locations locations={locationsList}/>,
-          height:"50vh",
-        },
-        {
-          name:"Details",
-          content:
-          <>
-            <h1>details</h1>
-          </>
-        },
-      ]} />
+      <div className={style.container}>
+
+
+        {/* TABS */}
+        <Tabs height={"60vh"} elements={[
+          {
+            name: "Stats",
+            content: <Stats stats={pokemon.stats} />,
+          },
+          {
+            name: "Moves",
+            content: <Moves moves={pokemon.moves} />,
+          },
+          {
+            name: "Location",
+            content: <Locations locations={locationsList} />,
+          },
+          {
+            name: "Details",
+            content:
+              <>
+                <h1>details</h1>
+              </>
+          },
+        ]} />
+      </div>
     </div>
     
   );
