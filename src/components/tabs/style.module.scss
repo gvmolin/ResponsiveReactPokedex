@@ -37,6 +37,17 @@
 }
 
 @media(min-width:600px){
+
+  .tabsContainer{
+    div{
+      button{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .contentContainer{
     width: 100%;
     min-height: 50vh;
